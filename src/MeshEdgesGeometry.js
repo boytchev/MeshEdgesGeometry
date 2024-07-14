@@ -1,16 +1,16 @@
-import * as THREE from 'three';
-import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
+import { BufferGeometry, EdgesGeometry } from 'three';
+import { mergeAttributes } from 'three/addons/utils/BufferGeometryUtils.js';
 
 
-class MeshEdgesGeometry extends THREE.BufferGeometry {
+class MeshEdgesGeometry extends BufferGeometry {
 
-	constructor( object, thresholdAngle=1, lineSegments=true ) {
+	constructor( object, thresholdAngle=1 ) {
 
 		super();
 
 		object.updateWorldMatrix( true, true );
 
-		var position = this.extractEdges( object, thresholdAngle, lineSegments );
+		var position = this.extractEdges( object, thresholdAngle );
 
 		this.setAttribute( 'position', position );
 
@@ -27,7 +27,7 @@ class MeshEdgesGeometry extends THREE.BufferGeometry {
 
 			if ( child.geometry ) {
 
-				var geo = new THREE.EdgesGeometry( child.geometry, thresholdAngle );
+				var geo = new EdgesGeometry( child.geometry, thresholdAngle );
 				var pos = geo.getAttribute( 'position' );
 
 				attributes.push( pos.applyMatrix4( child.matrixWorld ) );
@@ -36,10 +36,9 @@ class MeshEdgesGeometry extends THREE.BufferGeometry {
 
 		} ); // object.traverse
 
-		return BufferGeometryUtils.mergeAttributes( attributes );
+		return mergeAttributes( attributes );
 
 	} // MeshEdgesGeometry.extractEdges
-
 
 } // MeshEdgesGeometry
 

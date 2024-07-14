@@ -39,13 +39,14 @@ import { MeshEdgesGeometry } from "../src/MeshEdgesGeometry.js";
 console.clear( );
 
 var scene = new THREE.Scene();
-    scene.background = new THREE.Color( 'navy' );
+    scene.background = new THREE.Color( 0xf0f0f0 );
 
 var camera = new THREE.PerspectiveCamera( 30, innerWidth/innerHeight );
     camera.position.set( 0, 2, 10 );
 
 var renderer = new THREE.WebGLRenderer( {antialias: true} );
     renderer.setSize( innerWidth, innerHeight );
+	renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
     renderer.setAnimationLoop( animationLoop );
     document.body.appendChild( renderer.domElement );
 			
@@ -62,15 +63,19 @@ var controls = new OrbitControls( camera, renderer.domElement );
 
 
 var a = new THREE.Mesh(
-	new THREE.BoxGeometry( 2, 1, 2 ),
+	new THREE.BoxGeometry( 2, 2, 2 ),
 	new THREE.MeshNormalMaterial( )
 );
 
 var b = new THREE.LineSegments(
-			new MeshEdgesGeometry( a ),
+			new MeshEdgesGeometry( a, 1, !true ),
 			new THREE.LineBasicMaterial( {color:'crimson'})
 	)
 scene.add( b );
+
+var light = new THREE.DirectionalLight('white',10);
+scene.add(light);
+scene.fog = new THREE.Fog(scene.background,7,12);
 
 // load a GLTF model 
 //
@@ -87,16 +92,20 @@ var loader = new GLTFLoader();
 				model.position.y = -0.5;
 				// build combined geometry
 				newModel = new THREE.LineSegments(
-							new MeshEdgesGeometry( model ),
-							new THREE.LineBasicMaterial( {color:'cornflowerblue'})
+							new MeshEdgesGeometry( model,10 ),
+							new THREE.LineBasicMaterial( {color:'black',opacity:0.2,transparent:!true})
 					)
-				scene.add( newModel );
-			
+				scene.add( 
+				//model,
+				newModel 
+				);
+			console.log(model)
 		} );
 		
 function animationLoop( t )
 {
     controls.update( );
+	light.position.copy( camera.position )
     renderer.render( scene, camera );
 }
 
