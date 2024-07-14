@@ -1,0 +1,38 @@
+{
+  "name": "meshedgesgeometry",
+  "version": "0.0.1",
+  "description": "Extract edges from a Three.js object",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boytchev/MeshEdgesGeometry.git"
+  },
+  "files": [
+    "LICENSE",
+    "package.json",
+    "package-lock.json",
+    "README.md",
+    "src"
+  ],
+  "keywords": [
+    "threejs",
+    "mesh",
+    "object",
+    "edges",
+    "geometry"
+  ],
+  "author": "Pavel Boytchev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/boytchev/MeshEdgesGeometry/issues"
+  },
+  "homepage": "https://github.com/boytchev/MeshEdgesGeometry#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.7.0",
+    "eslint": "^9.7.0",
+    "globals": "^15.8.0"
+  }
+}
