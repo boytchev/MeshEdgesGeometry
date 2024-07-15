@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+
+
+<html>
+
+
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+	<style>
+		body {
+			overflow: hidden;
+			margin: 0;
+		}
+	</style>
+
+	<script type="importmap">
+	  {
+		"imports": {
+			"three": "https://cdn.jsdelivr.net/npm/three@0.166.0/build/three.module.js",
+			"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.0/examples/jsm/",
+			"meg/": "https://cdn.jsdelivr.net/npm/meshedgesgeometry@latest/src/"
+		}
+	  }
+	</script>
+</head>
+
+
+<body>
+	
+	<script type="module">
+
+		import * as THREE from "three";
+		import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+		import { MeshEdgesGeometry } from "meg/MeshEdgesGeometry.js";
+
+
+		// general setup
+
+		var scene = new THREE.Scene();
+			scene.background = new THREE.Color( 'FloralWhite' );
+
+		var camera = new THREE.PerspectiveCamera( 30, innerWidth/innerHeight );
+			camera.position.set( 0, 2, 10 );
+
+		var renderer = new THREE.WebGLRenderer( {antialias: true} );
+			renderer.setSize( innerWidth, innerHeight );
+			renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+			document.body.appendChild( renderer.domElement );
+					
+		var controls = new OrbitControls( camera, renderer.domElement );
+			controls.enableDamping = true;
+			controls.autoRotate = true;
+			controls.autoRotateSpeed = 1;
+
+		window.addEventListener( "resize", (event) => {
+			camera.aspect = innerWidth/innerHeight;
+			camera.updateProjectionMatrix( );
+			renderer.setSize( innerWidth, innerHeight );
+		});
+
+
+		// user-defined object
+
+		var box = new THREE.Mesh(
+				new THREE.BoxGeometry( 2, 2, 2 ),
+				new THREE.MeshNormalMaterial( {
+					transparent: true,
+					opacity: 0.85,
+					side: THREE.DoubleSide,
+				} )
+			);
+			
+		box.rotation.set( 1, 2, 3 );
+		scene.add( box );
+			
+
+		// object edges
+
+		var edges = new THREE.LineSegments(
+					new MeshEdgesGeometry( box ),
+					new THREE.LineBasicMaterial( {color:'black'})
+			)
+		scene.add( edges );
+
+
+		// animation loop
+		
+		renderer.setAnimationLoop( ( t ) => {
+			box.material.opacity = 0.3 + 0.3*Math.sin(t/1000);
+			controls.update( );
+			renderer.render( scene, camera );
+		} );
+	
+	</script>
+</body>
+</html>

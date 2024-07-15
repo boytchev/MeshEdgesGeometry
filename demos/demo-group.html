@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+
+
+<html>
+
+
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+	<style>
+		body {
+			overflow: hidden;
+			margin: 0;
+		}
+	</style>
+
+	<script type="importmap">
+	  {
+		"imports": {
+			"three": "https://cdn.jsdelivr.net/npm/three@0.166.0/build/three.module.js",
+			"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.0/examples/jsm/",
+			"meg/": "https://cdn.jsdelivr.net/npm/meshedgesgeometry@latest/src/"
+		}
+	  }
+	</script>
+</head>
+
+
+<body>
+	
+	<script type="module">
+
+		import * as THREE from "three";
+		import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+		import { MeshEdgesGeometry } from "meg/MeshEdgesGeometry.js";
+
+
+		// general setup
+
+		var scene = new THREE.Scene();
+			scene.background = new THREE.Color( 'FloralWhite' );
+
+		var camera = new THREE.PerspectiveCamera( 30, innerWidth/innerHeight );
+			camera.position.set( 0, 10, 50 );
+
+		var renderer = new THREE.WebGLRenderer( {antialias: true} );
+			renderer.setSize( innerWidth, innerHeight );
+			renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+			document.body.appendChild( renderer.domElement );
+					
+		window.addEventListener( "resize", (event) => {
+			camera.aspect = innerWidth/innerHeight;
+			camera.updateProjectionMatrix( );
+			renderer.setSize( innerWidth, innerHeight );
+		});
+
+		var controls = new OrbitControls( camera, renderer.domElement );
+			controls.enableDamping = true;
+			controls.autoRotate = true;
+			controls.autoRotateSpeed = 0.3;
+
+
+		// helper random function
+
+		var rnd = THREE.MathUtils.randFloat;
+
+
+		// a group of custom user objects
+
+		var material = new THREE.MeshNormalMaterial( {
+							transparent: true,
+							opacity: 0.85,
+							side: THREE.DoubleSide,
+						} );
+					
+		var group = new THREE.Group();
+			scene.add( group );
+
+		for( var i=0; i<100; i++ )
+		{
+			var box = new THREE.Mesh(
+				new THREE.ConeGeometry( rnd(1,2), rnd(3,5), 4 ),
+				material
+			);
+			
+			box.position.randomDirection().setLength( rnd(5,20) );
+			box.rotation.set( rnd(0,6.3), rnd(0,6.3), rnd(0,6.3) );
+			
+			group.add( box );
+		}
+
+		// object edges
+
+		var edges = new THREE.LineSegments(
+					new MeshEdgesGeometry( group ),
+					new THREE.LineBasicMaterial( {color:'black'})
+			);
+		scene.add( edges );
+
+
+				
+		renderer.setAnimationLoop( ( t ) => {
+			material.opacity = 0.3 + 0.3*Math.sin(t/1000);
+			controls.update( );
+			renderer.render( scene, camera );
+		} );
+
+	
+	</script>
+</body>
+</html>

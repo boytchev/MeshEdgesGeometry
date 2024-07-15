@@ -36,6 +36,11 @@ class MeshEdgesGeometry extends BufferGeometry {
 
 		} ); // object.traverse
 
+		if( attributes.length == 0 )
+		{
+			throw 'MeshEdgesGeometry: No edges found';
+		}
+		
 		return mergeAttributes( attributes );
 
 	} // MeshEdgesGeometry.extractEdges

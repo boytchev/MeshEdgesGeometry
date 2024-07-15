@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+
+
+<html>
+
+
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+	<style>
+		body {
+			overflow: hidden;
+			margin: 0;
+			font-family: Cordana, Calibri, sans-serif;
+		}
+
+		.credits {
+			position: absolute;
+			z-index: 1;
+			color: dimgray;
+			left: 1em;
+			bottom: 1em;
+		}
+	</style>
+
+	<script type="importmap">
+	  {
+		"imports": {
+			"three": "https://cdn.jsdelivr.net/npm/three@0.166.0/build/three.module.js",
+			"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.0/examples/jsm/",
+			"meg/": "https://cdn.jsdelivr.net/npm/meshedgesgeometry@latest/src/"
+		}
+	  }
+	</script>
+</head>
+
+
+<body>
+	<div class="credits">
+		Models: Car Kit (1.4)<br>
+		Author: Kenney, <a href="https://www.kenney.nl/">www.kenney.nl</a><br>
+		License: CC0
+	</div>
+	
+	<script type="module">
+
+		import * as THREE from "three";
+		import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+		import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+		import { MeshEdgesGeometry } from "meg/MeshEdgesGeometry.js";
+
+
+		// general setup
+
+		console.clear( );
+
+		var scene = new THREE.Scene();
+			scene.background = new THREE.Color( 'FloralWhite' );
+
+		var camera = new THREE.PerspectiveCamera( 30, innerWidth/innerHeight );
+			camera.position.set( 0, 2, 10 );
+
+		var light = new THREE.DirectionalLight('white',10);
+			scene.add(light);
+			
+		var renderer = new THREE.WebGLRenderer( {antialias: true} );
+			renderer.setSize( innerWidth, innerHeight );
+			renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+			document.body.appendChild( renderer.domElement );
+					
+		var controls = new OrbitControls( camera, renderer.domElement );
+			controls.enableDamping = true;
+			controls.autoRotate = true;
+			controls.autoRotateSpeed = 0.3;
+
+		window.addEventListener( "resize", (event) => {
+			camera.aspect = innerWidth/innerHeight;
+			camera.updateProjectionMatrix( );
+			renderer.setSize( innerWidth, innerHeight );
+		});
+
+
+		// load three 3D models
+
+		var material = new THREE.MeshNormalMaterial( {
+							transparent: true,
+							opacity: 0.5,
+							side: THREE.DoubleSide,
+						} );
+						
+		var models = ['tractor','ambulance','race'];
+					
+		for( let i=0; i<models.length; i++)
+		{
+			new GLTFLoader().load( `models/${models[i]}.glb`, gltf => {
+				var model = new THREE.LineSegments(
+								new MeshEdgesGeometry( gltf.scene ),
+								material
+							);
+					model.position.set( 2.5*(i-1), -0.5, 0 );
+							
+				scene.add( model );
+			} );
+		}	
+		
+		
+		// animation loop
+		
+		renderer.setAnimationLoop( ( t ) => {
+			controls.update( );
+			renderer.render( scene, camera );
+		} );
+	
+	</script>
+</body>
+</html>
