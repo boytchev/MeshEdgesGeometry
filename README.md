@@ -29,6 +29,6 @@ var edges = new THREE.LineSegments(
 Somewhat minimalistic demos of using **MeshEdgesGeometry** on a cube, on a group
 of pyramids and on GLTF models. Click on an image to run it live:
 
-[<img src="https://boytchev.github.io/MeshEdgesGeometry/demos/snapshots/demo-cube.jpg">](https://boytchev.github.io/MeshEdgesGeometry/demos/demo-cube.html)
-[<img src="https://boytchev.github.io/MeshEdgesGeometry/demos/snapshots/demo-group.jpg">](https://boytchev.github.io/MeshEdgesGeometry/demos/demo-group.html)
-[<img src="https://boytchev.github.io/MeshEdgesGeometry/demos/snapshots/demo-model.jpg">](https://boytchev.github.io/MeshEdgesGeometry/demos/demo-model.html)
+[<img width="150" src="https://boytchev.github.io/MeshEdgesGeometry/demos/snapshots/demo-cube.jpg">](https://boytchev.github.io/MeshEdgesGeometry/demos/demo-cube.html)
+[<img width="150" src="https://boytchev.github.io/MeshEdgesGeometry/demos/snapshots/demo-group.jpg">](https://boytchev.github.io/MeshEdgesGeometry/demos/demo-group.html)
+[<img width="150" src="https://boytchev.github.io/MeshEdgesGeometry/demos/snapshots/demo-model.jpg">](https://boytchev.github.io/MeshEdgesGeometry/demos/demo-model.html)
