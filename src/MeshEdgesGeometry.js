@@ -4,7 +4,7 @@ import { mergeAttributes } from 'three/addons/utils/BufferGeometryUtils.js';
 
 class MeshEdgesGeometry extends BufferGeometry {
 
-	constructor( object, thresholdAngle=1 ) {
+	constructor( object, thresholdAngle = 1 ) {
 
 		super();
 
@@ -18,7 +18,7 @@ class MeshEdgesGeometry extends BufferGeometry {
 
 
 	// extract edges - each edge is individual segment
-	// return position buffer attribute
+	// return position buffer 
 	extractEdges( object, thresholdAngle ) {
 
 		var attributes = [];

@@ -32,3 +32,8 @@ of pyramids and on GLTF models. Click on an image to run it live:
 [<img width="225" src="https://boytchev.github.io/MeshEdgesGeometry/demos/snapshots/demo-cube.jpg">](https://boytchev.github.io/MeshEdgesGeometry/demos/demo-cube.html)
 [<img width="225" src="https://boytchev.github.io/MeshEdgesGeometry/demos/snapshots/demo-group.jpg">](https://boytchev.github.io/MeshEdgesGeometry/demos/demo-group.html)
 [<img width="225" src="https://boytchev.github.io/MeshEdgesGeometry/demos/snapshots/demo-model.jpg">](https://boytchev.github.io/MeshEdgesGeometry/demos/demo-model.html)
+
+
+### Source code
+
+[https://github.com/boytchev/MeshEdgesGeometry](https://github.com/boytchev/MeshEdgesGeometry)
