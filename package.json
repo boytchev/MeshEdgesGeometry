@@ -13,7 +13,6 @@
   "files": [
     "LICENSE",
     "package.json",
-    "package-lock.json",
     "src"
   ],
   "keywords": [
