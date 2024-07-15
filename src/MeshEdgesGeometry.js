@@ -18,7 +18,7 @@ class MeshEdgesGeometry extends BufferGeometry {
 
 
 	// extract edges - each edge is individual segment
-	// return position buffer 
+	// return position buffer
 	extractEdges( object, thresholdAngle ) {
 
 		var attributes = [];
